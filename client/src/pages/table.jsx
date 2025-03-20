@@ -147,117 +147,6 @@ export default function ManageEmp() {
             onChange={(e) => setQuery(e.target.value)}
           />
 
-          {/* Modal for adding a new course */}
-          {showModal && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
-              <div className="bg-white p-8 rounded-lg shadow-xl w-96">
-                <h2 className="text-2xl font-bold mb-4">Add Course</h2>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleAddCourse();
-                  }}
-                >
-                  <input
-                    type="text"
-                    name="sId"
-                    placeholder="IT Number"
-                    value={newCourse.sId}
-                    onChange={(e) =>
-                      setNewCourse({ ...newCourse, sId: e.target.value })
-                    }
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={newCourse.name}
-                    onChange={(e) =>
-                      setNewCourse({ ...newCourse, name: e.target.value })
-                    }
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    name="intake"
-                    placeholder="Intake"
-                    value={newCourse.intake}
-                    onChange={(e) =>
-                      setNewCourse({ ...newCourse, intake: e.target.value })
-                    }
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
-                    required
-                  />
-
-                  <select
-                    name="gender"
-                    value={newCourse.gender}
-                    onChange={(e) =>
-                      setNewCourse({ ...newCourse, gender: e.target.value })
-                    }
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
-                    required
-                  >
-                    <option value="" disabled>
-                      Select Gender
-                    </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                  <input
-                    type="text"
-                    name="batch"
-                    placeholder="Batch"
-                    value={newCourse.batch}
-                    onChange={(e) => {
-                      setNewCourse({ ...newCourse, batch: e.target.value });
-                      validateBatch(e.target.value); // Check for batch validation on change
-                    }}
-                    className="w-full p-2 mb-4 border border-gray-300 rounded"
-                    required
-                  />
-
-                  {validation && (
-                    <p className="mt-[-10px] mb-2 text-red-600 text-sm">
-                      {validation}
-                    </p> // Show validation error message
-                  )}
-
-                  <input
-                    type="text"
-                    name="operations"
-                    placeholder="Operations"
-                    value={newCourse.operations}
-                    onChange={(e) =>
-                      setNewCourse({ ...newCourse, operations: e.target.value })
-                    }
-                    className="w-full p-2 mb-4  border border-gray-300 rounded"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 px-4 rounded"
-                    disabled={validation !== null} // Disable the button if there's a validation error
-                  >
-                    Submit
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                    className="w-full bg-red-500 text-white py-2 px-4 rounded mt-4"
-                  >
-                    Close
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-
           <div className="flex  gap-4">
             <div>
               <button
@@ -283,12 +172,12 @@ export default function ManageEmp() {
     <table className="min-w-full bg-white text-sm text-gray-700">
       <thead className="bg-blue-600 text-white">
         <tr>
-          <th className="px-6 py-4 text-left">Student ID</th>
-          <th className="px-6 py-4 text-left">Name</th>
-          <th className="px-6 py-4 text-left">Gender</th>
-          <th className="px-6 py-4 text-left">Intake</th>
-          <th className="px-6 py-4 text-left">Batch</th>
-          <th className="px-6 py-4 text-left">Operations</th>
+       
+          <th className="px-6 py-4 text-left">image</th>
+          <th className="px-6 py-4 text-left">name</th>
+          <th className="px-6 py-4 text-left">price</th>
+          <th className="px-6 py-4 text-left">Expiredate</th>
+          <th className="px-6 py-4 text-left">description</th>
           <th className="px-6 py-4 text-center">Edit</th>
           <th className="px-6 py-4 text-center">Delete</th>
         </tr>
@@ -300,12 +189,12 @@ export default function ManageEmp() {
               key={course._id}
               className="hover:bg-blue-50 transition-colors duration-300"
             >
-              <td className="px-6 py-4 border-b text-gray-800">{course.sId}</td>
+              <td className="px-6 py-4 border-b text-gray-800">{course.image}</td>
               <td className="px-6 py-4 border-b text-gray-800">{course.name}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.gender}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.intake}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.batch}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.operations}</td>
+              <td className="px-6 py-4 border-b text-gray-800">{course.price}</td>
+              <td className="px-6 py-4 border-b text-gray-800">{course.Expiredate}</td>
+              <td className="px-6 py-4 border-b text-gray-800">{course.description}</td>
+       
               <td className="px-6 py-4 border-b text-center">
                 <Link to={`/manage/${course._id}`}>
                   <button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300">

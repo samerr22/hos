@@ -62,7 +62,7 @@ import {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await fetch("/api/schedule/Screate", {
+        const res = await fetch("http://localhost:3000/api/inventoryc", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -231,7 +231,7 @@ import {
   required
   id="price"
   onChange={(e) =>
-    setFormData({ ...formData, Expiredate: e.target.value })
+    setFormData({ ...formData, price: e.target.value })
   }
 />
 
@@ -242,14 +242,14 @@ import {
 
             <div className="flex justify-center items-center ">
               <textarea
-                type="price"
+                type="description"
                 placeholder="Reqcsting schedule"
                 required
-                id="price"
+                id="description"
                 
                 className="flex-1 bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[460px] h-15"
                 onChange={(e) =>
-                  setFormData({ ...formData, price: e.target.value })
+                  setFormData({ ...formData, description: e.target.value })
                 }
               />
             </div>

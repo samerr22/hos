@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 // Create a new inventory item
-router.post('/inventory', createInventoryItem);
+router.post('/inventoryc', createInventoryItem);
 
 // Get all inventory items
 router.get('/inventory', getAllInventoryItems);
