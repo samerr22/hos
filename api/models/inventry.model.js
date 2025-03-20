@@ -5,7 +5,9 @@ const inventoryItemSchema = new mongoose.Schema({
   description: { type: String },
   quantity: { type: Number, required: true },
   price: { type: Number, required: true },
-  createdAt: { type: Date, default: Date.now },
+  Expiredate: { type: String, required: true },
+  image: { type: String, required: true },
+   
 });
 
 const InventoryItem = mongoose.model('InventoryItem', inventoryItemSchema);

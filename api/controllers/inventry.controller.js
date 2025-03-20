@@ -3,8 +3,8 @@ import InventoryItem from '../models/inventry.model.js';
 // Create new inventory item
 export const createInventoryItem = async (req, res, next) => {
   try {
-    const { name, description, quantity, price } = req.body;
-    const newItem = new InventoryItem({ name, description, quantity, price });
+    const { name, description, quantity, price,Expiredate,image } = req.body;
+    const newItem = new InventoryItem({ name,Expiredate, description, quantity, price,image });
     await newItem.save();
     res.status(201).json({ message: 'Item created successfully', item: newItem });
   } catch (error) {
@@ -41,7 +41,7 @@ export const updateInventoryItem = async (req, res, next) => {
     const { name, description, quantity, price } = req.body;
     const updatedItem = await InventoryItem.findByIdAndUpdate(
       req.params.id,
-      { name, description, quantity, price },
+      { name, description,image,Expiredate, quantity, price },
       { new: true }
     );
     if (!updatedItem) {

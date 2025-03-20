@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Update from "./pages/Update";
 import Record from "./pages/table";
-
+import Inventry from "./pages/inventry";
 
 
 
@@ -18,6 +18,7 @@ export default function App() {
 
         <Route path="/manage/:idd" element={<Update />} />
         <Route path="/" element={<Record />} />
+        <Route path="/addinvetry" element={<Inventry/>} />
      
       </Routes>
       <Footer />
