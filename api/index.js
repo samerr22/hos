@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from "dotenv";
-import record from './routes/records.route.js';
+import inventoryRoutes from './routes/Inventry.route.js';
 
 
 
@@ -29,7 +29,7 @@ app.listen(3000, () => {
 
 
 
-app.use('/api', record);
+app.use('/api', inventoryRoutes);
 
 
 
