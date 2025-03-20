@@ -13,13 +13,13 @@ const router = express.Router();
 router.post('/inventoryc', createInventoryItem);
 
 // Get all inventory items
-router.get('/inventory', getAllInventoryItems);
+router.get('/iget', getAllInventoryItems);
 
 // Get inventory item by ID
 router.get('/inventory/:id', getInventoryItemById);
 
 // Update inventory item by ID
-router.put('/inventory/:id', updateInventoryItem);
+router.put('/Uinventory/:id', updateInventoryItem);
 
 // Delete inventory item by ID
 router.delete('/inventory/:id', deleteInventoryItem);

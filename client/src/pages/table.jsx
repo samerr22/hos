@@ -25,11 +25,11 @@ export default function ManageEmp() {
   useEffect(() => {
     const fetchinfo = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/getall`);
+        const res = await fetch(`http://localhost:3000/api/iget`);
         const data = await res.json();
         console.log(data);
         if (res.ok) {
-          setInfo(data.cou);
+          setInfo(data);
         }
       } catch (error) {
         console.log(error.message);
@@ -83,45 +83,7 @@ export default function ManageEmp() {
     }
   }, [query, Info]);
 
-  const handleAddCourse = async () => {
-    if (!validateBatch(newCourse.batch)) {
-      return; // Don't proceed if validation fails
-    }
 
-    try {
-      const res = await fetch("http://localhost:3000/api/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newCourse)
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setPublishError(data.message);
-        return;
-      }
-
-      if (res.ok) {
-        setPublishError(null);
-        alert("Course added successfully!");
-        setShowModal(false); // Close the modal after successful submission
-
-        setNewCourse({
-          sId: "",
-          name: "",
-          gender: "",
-          intake: "",
-          batch: "",
-          operations: ""
-        }); // Clear the form fields
-        window.location.reload();
-      }
-    } catch (error) {
-      setPublishError("Something went wrong");
-      console.error(error.message);
-    }
-  };
 
   // Batch validation function
   const validateBatch = (batch) => {
@@ -189,7 +151,9 @@ export default function ManageEmp() {
               key={course._id}
               className="hover:bg-blue-50 transition-colors duration-300"
             >
-              <td className="px-6 py-4 border-b text-gray-800">{course.image}</td>
+              <td className="px-6 py-4 border-b text-gray-800">
+  <img src={course.image} alt="Course" className="w-16 h-16 object-cover rounded" />
+</td>
               <td className="px-6 py-4 border-b text-gray-800">{course.name}</td>
               <td className="px-6 py-4 border-b text-gray-800">{course.price}</td>
               <td className="px-6 py-4 border-b text-gray-800">{course.Expiredate}</td>
