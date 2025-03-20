@@ -250,15 +250,19 @@ setFormData({ ...formData, price: e.target.value })
 }
 />
 
+                  <p className="mt-0 text-red-600 h-0     rounded-lg text-center ">
+                   price must be number
+                  </p>
+         
 
 </div>
    </div>
 
 
- <div className="flex justify-center items-center ">
+ <div className="flex justify-center mt-4 items-center ">
    <textarea
      type="description"
-     placeholder="Reqcsting schedule"
+     placeholder="Description"
      required
      id="description"
      value={formData.description}

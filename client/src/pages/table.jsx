@@ -76,8 +76,8 @@ export default function ManageEmp() {
     } else {
       const filteredData = Info.filter(
         (course) =>
-          course.sId &&
-        course.sId.toLowerCase().includes(query.toLowerCase())
+          course.name &&
+        course.name.toLowerCase().includes(query.toLowerCase())
       );
       setfilter(filteredData);
     }
