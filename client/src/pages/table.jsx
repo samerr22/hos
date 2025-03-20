@@ -41,14 +41,14 @@ export default function ManageEmp() {
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.autoTable({
-      head: [["StudentId", "Name", "Gender", "Intake", "Batch", "Operations"]],
+      head: [[ "name", "quantity", "price", "Expiredate", "description"]],
       body: filter.map((course) => [
-        course.sId,
+       
         course.name,
-        course.gender,
-        course.intake,
-        course.batch,
-        course.operations
+        course.quantity,
+        course.price,
+        course.Expiredate,
+        course.description
       ]),
       theme: "grid",
       headStyles: { fillColor: [0, 0, 255] }
