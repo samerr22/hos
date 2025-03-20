@@ -22,6 +22,6 @@ router.get('/inventory/:id', getInventoryItemById);
 router.put('/Uinventory/:id', updateInventoryItem);
 
 // Delete inventory item by ID
-router.delete('/inventory/:id', deleteInventoryItem);
+router.delete('/inventoryd/:id', deleteInventoryItem);
 
 export default router;

@@ -58,7 +58,7 @@ export default function ManageEmp() {
 
   const handleDeleteUser = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/delete/${DId}`, {
+      const res = await fetch(`http://localhost:3000/api/inventoryd/${DId}`, {
         method: "DELETE"
       });
       if (res.ok) {

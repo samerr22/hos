@@ -38,7 +38,7 @@ export const getInventoryItemById = async (req, res, next) => {
 // Update inventory item
 export const updateInventoryItem = async (req, res, next) => {
   try {
-    const { name, description, quantity, price } = req.body;
+    const {image,Expiredate, name, description, quantity, price } = req.body;
     const updatedItem = await InventoryItem.findByIdAndUpdate(
       req.params.id,
       { name, description,image,Expiredate, quantity, price },
