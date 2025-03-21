@@ -2,7 +2,7 @@ import {
   getDownloadURL,
   getStorage,
   ref,
-  uploadBytesResumable,
+  uploadBytesResumable
 } from "firebase/storage";
 import { app } from "../firebase";
 import { useEffect, useState } from "react";
@@ -19,30 +19,28 @@ export default function Update() {
 
   const { idd } = useParams();
 
-
   useEffect(() => {
-      try {
-        const fetchStudents = async () => {
-          const res = await fetch(`http://localhost:3000/api/iget?itemId=${idd}`);
-          const data = await res.json();
-          console.log("data", data);
-  
-          if (!res.ok) {
-            console.log(data.message);
-          }
-          if (res.ok) {
-            const selected = data.find((item) => item._id === idd);
-            if (selected) {
-              setFormData(selected);
-            }
-          }
-        };
-        fetchStudents();
-      } catch (error) {
-        console.log(error.message);
-      }
-    }, [idd]);
+    try {
+      const fetchStudents = async () => {
+        const res = await fetch(`http://localhost:3000/api/iget?itemId=${idd}`);
+        const data = await res.json();
+        console.log("data", data);
 
+        if (!res.ok) {
+          console.log(data.message);
+        }
+        if (res.ok) {
+          const selected = data.find((item) => item._id === idd);
+          if (selected) {
+            setFormData(selected);
+          }
+        }
+      };
+      fetchStudents();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [idd]);
 
   console.log(formData);
 
@@ -86,249 +84,185 @@ export default function Update() {
   };
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const res = await fetch(`http://localhost:3000/api/Uinventory/${formData._id}`, {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/Uinventory/${formData._id}`,
+        {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(formData),
-        });
-        const data = await res.json();
-        console.log(data);
-        if (!res.ok) {
-          setPublishError(data.message);
-          return;
+          body: JSON.stringify(formData)
         }
-  
-        if (res.ok) {
-          setPublishError(null);
-          alert("done")
-          navigate(``);
-        }
-      } catch (error) {
-        setPublishError("Something went wrong");
+      );
+      const data = await res.json();
+      console.log(data);
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
       }
-    };
- 
 
+      if (res.ok) {
+        setPublishError(null);
+        alert("done");
+        navigate(``);
+      }
+    } catch (error) {
+      setPublishError("Something went wrong");
+    }
+  };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center">
-              
-<img
-src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-alt=""
-className="absolute inset-0 w-full h-full object-cover"
-/>
+    <div className="min-h-screen relative flex items-center justify-center bg-white">
+  <div className="relative bg-white mt-14 mb-28 bg-opacity-10 shadow-sm shadow-black w-[900px] max-w-[900px] p-6 md:p-8 rounded-3xl border border-opacity-50 flex flex-col items-center">
+    <div className="flex justify-center items-center">
+      <Link to={`/`}>
+        <button className="text-md hover:text-blue-400 font-serif underline text-blue-600">
+         Back
+        </button>
+      </Link>
+    </div>
+    <div className="my-7 flex items-center justify-center">
+      <h1 className="text-3xl font-serif uppercase text-blue-600">
+       Update Item
+      </h1>
+    </div>
 
-<div className="relative bg-white mt-14 mb-28 bg-opacity-10 shadow-sm shadow-black w-[900px] max-w-[900px] p-6 md:p-8 rounded-3xl border border-opacity-50 flex flex-col items-center">
-<div className="flex justify-center items-center">
-     <Link to={`/myschedule`}>
-       <button className="text-md hover:text-blue-400   font-serif underline text-white">
-         My Schedule
-       </button>
-     </Link>
-   </div>
-<div className="my-7 flex items-center justify-center  ">
-<h1 className=" text-3xl font-serif uppercase text-white ">Schedule Form</h1>
+    <div className="w-[800px] h-[510px] bg-white bg-opacity-90 border shadow-xl rounded-3xl">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <div className="flex gap-4 items-center justify-between border-2 rounded-2xl shadow-xl p-3">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFile(e.target.files[0])}
+            className="border border-gray-300 shadow-sm bg-white rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+          />
+          <button
+            type="button"
+            className="w-40 h-10 rounded-lg bg-blue-500 uppercase shadow-lg text-white hover:opacity-90"
+            size="sm"
+            onClick={handleUpdloadImage}
+            disabled={imageUploadProgress}
+          >
+            {imageUploadProgress ? (
+              <div className="w-16 h-16">
+                <CircularProgressbar
+                  value={imageUploadProgress}
+                  text={`${imageUploadProgress || 0}%`}
+                />
+              </div>
+            ) : (
+              "Upload Image"
+            )}
+          </button>
+        </div>
+        {imageUploadError && (
+          <p className="mt-5 text-red-600 bg-red-300 w-300 h-7 rounded-lg text-center">
+            {imageUploadError}
+          </p>
+        )}
+        {formData.image && (
+          <img
+            src={formData.image}
+            alt="upload"
+            className="w-48 h-20 object-cover"
+          />
+        )}
+
+        <div className="flex flex-col gap-4 sm:flex-row justify-between">
+          <input
+            className="flex-1 bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[460px] h-11"
+            type="text"
+            placeholder="Name"
+            required
+            id="name"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
+          />
+        </div>
+
+        <div className="flex justify-center items-center gap-4">
+          <div>
+            <select
+              className="bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[200px] h-15"
+              value={formData.quantity}
+              onChange={(e) =>
+                setFormData({ ...formData, quantity: e.target.value })
+              }
+            >
+              <option value="">Select</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div>
+            <input
+              className="bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[200px] h-15"
+              type="text"
+              placeholder="Expiredate"
+              required
+              id="Expiredate"
+              value={formData.Expiredate}
+              onChange={(e) =>
+                setFormData({ ...formData, Expiredate: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <input
+              className="bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[200px] h-15"
+              type="text"
+              placeholder="Price"
+              required
+              id="price"
+              value={formData.price}
+              onChange={(e) =>
+                setFormData({ ...formData, price: e.target.value })
+              }
+            />
+
+            <p className="mt-0 text-red-600 h-0 rounded-lg text-center">
+              Price must be a number
+            </p>
+          </div>
+        </div>
+
+        <div className="flex justify-center mt-4 items-center">
+          <textarea
+            type="description"
+            placeholder="Description"
+            required
+            id="description"
+            value={formData.description}
+            className="flex-1 bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[460px] h-15"
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 uppercase text-white border-black p-3 rounded-lg w-[460px] h-11 hover:opacity-90 lg:w-full"
+        >
+          Submit
+        </button>
+
+        {publishError && (
+          <p className="mt-5 text-red-600 bg-white w-300 h-7 rounded-lg text-center">
+            {publishError}
+          </p>
+        )}
+      </form>
+    </div>
+  </div>
 </div>
 
-<div className="w-[800px] h-[510px] bg-white bg-opacity-50 border shadow-xl rounded-3xl ">
-<form className="flex flex-col gap-4" onSubmit={handleSubmit}>
- <div className="flex gap-4 items-center justify-between border-2 rounded-2xl shadow-xl    p-3">
-   <input
-     type="file"
-     accept="image/*"
-     onChange={(e) => setFile(e.target.files[0])}
-     className="border border-gray-300 shadow-sm bg-white rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
-   />
-   <button
-     type="button"
-     className=" w-40 h-10 rounded-lg bg-yellow-400 uppercase shadow-lg text-black hover:opacity-90"
-     size="sm"
-     onClick={handleUpdloadImage}
-     disabled={imageUploadProgress}
-   >
-     {imageUploadProgress ? (
-       <div className="w-16 h-16">
-         <CircularProgressbar
-           value={imageUploadProgress}
-           text={`${imageUploadProgress || 0}%`}
-         />
-       </div>
-     ) : (
-       "Upload Image"
-     )}
-   </button>
- </div>
- {imageUploadError && (
-   <p className="mt-5 text-red-600 bg-red-300 w-300 h-7 rounded-lg text-center ">
-     {imageUploadError}
-   </p>
- )}
- {formData.image && (
-   <img
-     src={formData.image}
-     alt="upload"
-     className="w-48 h-20 object-cover"
-   />
- )}
-
- <div className="flex flex-col gap-4 sm:flex-row justify-between">
-   <input
-     className=" flex-1 bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[460px] h-11"
-     type="text"
-     placeholder=" Name"
-     required
-     id="name"
-     value={formData.name}
-     onChange={(e) =>
-       setFormData({ ...formData, name: e.target.value })
-     }
-   />
- </div>
-
- <div className="flex justify-center items-center gap-4">
- <div>
-
-  
-
-   <select
-     className=" bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[200px] h-15"
-     value={formData.quantity}
-     onChange={(e) =>
-       setFormData({ ...formData, quantity: e.target.value })
-     }
-   >
-     <option value="">Select</option>
-     <option value="1">1</option>
-     <option value="2">2</option>
-     <option value="3">3</option>
-     <option value="4">4</option>
-     
-     
-   </select>
-   </div>
-<div>
-
-
-  
-
-
-   <input
-    className=" bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[200px] h-15"
-     type="text"
-     placeholder="Expiredate"
-     required
-     id="Expiredate"
-     value={formData.Expiredate}
-     onChange={(e) =>
-       setFormData({ ...formData, Expiredate: e.target.value })
-     }
-   />
-
-
-   </div>
-
-   <div>
-
-
-  
-
-
-<input
-className=" bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[200px] h-15"
-type="text"
-placeholder="price"
-required
-id="price"
-value={formData.price}
-onChange={(e) =>
-setFormData({ ...formData, price: e.target.value })
-}
-/>
-
-                  <p className="mt-0 text-red-600 h-0     rounded-lg text-center ">
-                   price must be number
-                  </p>
-         
-
-</div>
-   </div>
-
-
- <div className="flex justify-center mt-4 items-center ">
-   <textarea
-     type="description"
-     placeholder="Description"
-     required
-     id="description"
-     value={formData.description}
-     className="flex-1 bg-slate-100 shadow-sm shadow-slate-500 p-3 rounded-lg w-[460px] h-15"
-     onChange={(e) =>
-       setFormData({ ...formData, description: e.target.value })
-     }
-   />
- </div>
-
- <button
-   type="submit"
-   className=" bg-yellow-400 uppercase text-black border-black p-3 rounded-lg w-[460px] h-11 hover:opacity-90 lg:w-full"
- >
-   submit
- </button>
-
- {publishError && (
-   <p className="mt-5 text-red-600 bg-white  w-300 h-7 rounded-lg text-center ">
-     {publishError}
-   </p>
- )}
-</form>
-</div>
-</div>
-</div>
-     
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -9,18 +9,9 @@ export default function ManageEmp() {
   const [DId, setformId] = useState("");
   const [filter, setfilter] = useState([]);
   const [query, setQuery] = useState("");
-  const [publishError, setPublishError] = useState(null);
-  const [validation, setValidation] = useState(null);
 
-  const [showModal, setShowModal] = useState(false); // State to handle modal visibility
-  const [newCourse, setNewCourse] = useState({
-    sId: "",
-    name: "",
-    gender: "",
-    intake: "",
-    batch: "",
-    operations: ""
-  }); // State to manage form inputs
+
+ 
 
   useEffect(() => {
     const fetchinfo = async () => {
@@ -85,23 +76,13 @@ export default function ManageEmp() {
 
 
 
-  // Batch validation function
-  const validateBatch = (batch) => {
-    const batchRegex = /^[1-9][0-9]*$/; // Matches positive integers (no zero)
-    if (!batchRegex.test(batch)) {
-      setValidation("Batch must be a positive integer.");
-      return false;
-    }
-    setValidation(null);
-    return true;
-  };
-
   return (
     <div className="h-[800px] relative">
       <div className="items-center justify-center flex">
         <div className="items-center ">
+
           
-          <div></div>
+          <div className="flex justify-center items-center ">
           <input
             type="text"
             placeholder="Search..."
@@ -109,7 +90,7 @@ export default function ManageEmp() {
             onChange={(e) => setQuery(e.target.value)}
           />
 
-          <div className="flex  gap-4">
+          <div className="flex ml-5  gap-4">
             <div>
               <button
                 onClick={generatePDF}
@@ -120,19 +101,22 @@ export default function ManageEmp() {
             </div>
 
             <div>
+              <Link to="/addinvetry">
               <button
-                onClick={() => setShowModal(true)}
+                
                 className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
               >
-                Add Course
+                Add Item
               </button>
+              </Link>
             </div>
+          </div>
           </div>
 
           <div className="lg:w-[1200px]  mt-8 rounded-3xl shadow-xl bg-white overflow-hidden">
-  <div className="overflow-x-auto lg:h-[500px] ">
+  <div className="overflow-x-auto  scrollbar-none lg:h-[500px] ">
     <table className="min-w-full bg-white text-sm text-gray-700">
-      <thead className="bg-blue-600 text-white">
+      <thead className="bg-blue-500 text-white">
         <tr>
        
           <th className="px-6 py-4 text-left">image</th>
