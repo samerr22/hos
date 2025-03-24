@@ -77,107 +77,116 @@ export default function ManageEmp() {
 
 
   return (
-    <div className="h-[800px] relative">
-      <div className="items-center justify-center flex">
-        <div className="items-center ">
+    <div className="h-[800px] relative bg-[url('https://images.pexels.com/photos/18966875/pexels-photo-18966875/free-photo-of-machine-on-a-construction.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center">
+  <div className="items-center justify-center flex">
+    <div className="items-center">
 
-          
-          <div className="flex justify-center items-center ">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-[400px] h-10 mt-4 rounded-full shadow-xl border border-slate-400 bg-opacity-10"
-            onChange={(e) => setQuery(e.target.value)}
-          />
+      <div className="flex justify-center items-center ">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="w-[400px] h-10 mt-4 text-white bg-black rounded-full shadow-xl border border-slate-400 bg-opacity-10"
+          onChange={(e) => setQuery(e.target.value)}
+        />
 
-          <div className="flex ml-5  gap-4">
-            <div>
+        <div className="flex ml-5 gap-4">
+          <div>
+            <button
+              onClick={generatePDF}
+              className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
+            >
+              Download PDF
+            </button>
+          </div>
+
+          <div>
+            <Link to="/addinvetry">
               <button
-                onClick={generatePDF}
-                className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
-              >
-                Download PDF
-              </button>
-            </div>
-
-            <div>
-              <Link to="/addinvetry">
-              <button
-                
                 className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
               >
                 Add Item
               </button>
-              </Link>
-            </div>
+            </Link>
           </div>
-          </div>
+        </div>
+      </div>
 
-          <div className="lg:w-[1200px]  mt-8 rounded-3xl shadow-xl bg-white overflow-hidden">
-  <div className="overflow-x-auto  scrollbar-none lg:h-[500px] ">
-    <table className="min-w-full bg-white text-sm text-gray-700">
-      <thead className="bg-blue-500 text-white">
-        <tr>
-       
-          <th className="px-6 py-4 text-left">image</th>
-          <th className="px-6 py-4 text-left">name</th>
-          <th className="px-6 py-4 text-left">price</th>
-          <th className="px-6 py-4 text-left">Expiredate</th>
-          <th className="px-6 py-4 text-left">description</th>
-          <th className="px-6 py-4 text-center">Edit</th>
-          <th className="px-6 py-4 text-center">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filter && filter.length > 0 ? (
-          filter.map((course) => (
-            <tr
-              key={course._id}
-              className="hover:bg-blue-50 transition-colors duration-300"
-            >
-              <td className="px-6 py-4 border-b text-gray-800">
-  <img src={course.image} alt="Course" className="w-16 h-16 object-cover rounded" />
-</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.name}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.price}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.Expiredate}</td>
-              <td className="px-6 py-4 border-b text-gray-800">{course.description}</td>
-       
-              <td className="px-6 py-4 border-b text-center">
-                <Link to={`/manage/${course._id}`}>
-                  <button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300">
-                    Edit
-                  </button>
-                </Link>
-              </td>
-              <td className="px-6 py-4 border-b text-center">
-                <button
-                  onClick={() => {
-                    setformId(course._id);
-                    handleDeleteUser();
-                  }}
-                  className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan="8" className="text-center text-gray-500 py-4">
-              No records found
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+      <div className="lg:w-[1200px] mt-8 rounded-3xl shadow-xl  overflow-hidden">
+        <div className="overflow-x-auto scrollbar-none lg:h-[500px] ">
+          <table className="min-w-full  bg-white bg-opacity-80 text-sm text-gray-700">
+            <thead className="bg-blue-500 text-white">
+              <tr>
+                <th className="px-6 py-4 text-left">image</th>
+                <th className="px-6 py-4 text-left">name</th>
+                <th className="px-6 py-4 text-left">price</th>
+                <th className="px-6 py-4 text-left">Expiredate</th>
+                <th className="px-6 py-4 text-left">description</th>
+                <th className="px-6 py-4 text-center">Edit</th>
+                <th className="px-6 py-4 text-center">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filter && filter.length > 0 ? (
+                filter.map((course) => (
+                  <tr
+                    key={course._id}
+                    className="hover:bg-blue-50 transition-colors duration-300"
+                  >
+                    <td className="px-6 py-4 border-b text-gray-800">
+                      <img
+                        src={course.image}
+                        alt="Course"
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td className="px-6 py-4 border-b text-gray-800">
+                      {course.name}
+                    </td>
+                    <td className="px-6 py-4 border-b text-gray-800">
+                      {course.price}
+                    </td>
+                    <td className="px-6 py-4 border-b text-gray-800">
+                      {course.Expiredate}
+                    </td>
+                    <td className="px-6 py-4 border-b text-gray-800">
+                      {course.description}
+                    </td>
+
+                    <td className="px-6 py-4 border-b text-center">
+                      <Link to={`/manage/${course._id}`}>
+                        <button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300">
+                          Edit
+                        </button>
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4 border-b text-center">
+                      <button
+                        onClick={() => {
+                          setformId(course._id);
+                          handleDeleteUser();
+                        }}
+                        className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg shadow-md transition duration-300"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center text-gray-500 py-4">
+                    No records found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-
-        </div>
-      </div>
-    </div>
   );
 }
