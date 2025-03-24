@@ -85,10 +85,11 @@ export default function Dashboard() {
           Info.filter(item => item.quantity > 0).length, 
           Info.filter(item => item.quantity === 0).length
         ],
-        backgroundColor: ['#36a2eb', '#ff6384'],
+        backgroundColor: ['#003366', '#ff6384'], // Dark blue for "In Stock", and red for "Out of Stock"
       },
     ],
   };
+  
 
   // Bar chart data
   const barChartData = {
@@ -118,6 +119,9 @@ export default function Dashboard() {
       },
     ],
   };
+
+
+
 
   return (
     <div className="h-[1000px] bg-cover bg-center" style={{ backgroundImage: 'url("https://images.pexels.com/photos/18966875/pexels-photo-18966875/free-photo-of-machine-on-a-construction.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")' }}>

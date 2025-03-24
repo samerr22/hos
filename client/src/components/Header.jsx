@@ -37,8 +37,8 @@ export default function Header() {
           
           {/* Contact Link */}
           <li>
-            <Link to="/contact" className="text-white hover:text-gray-400">
-              Contact
+            <Link to="/dash" className="text-white hover:text-gray-400">
+              Manager
             </Link>
           </li>
         </ul>
