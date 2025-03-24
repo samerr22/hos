@@ -5,6 +5,7 @@ import Update from "./pages/Update";
 import Record from "./pages/table";
 import Inventry from "./pages/inventry";
 import Userview from "./pages/userview";
+import Supply from "./pages/supply";
 
 
 
@@ -20,7 +21,9 @@ export default function App() {
         <Route path="/manage/:idd" element={<Update />} />
         <Route path="/" element={<Record />} />
         <Route path="/addinvetry" element={<Inventry/>} />
-        <Route path="/user" element={<Userview/>} />
+        <Route path="/dash" element={<Userview/>} />
+
+        <Route path="/supply" element={<Supply/>} />
      
       </Routes>
       <Footer />

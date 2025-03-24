@@ -108,6 +108,16 @@ export default function ManageEmp() {
               </button>
             </Link>
           </div>
+
+          <div>
+            <Link to="/supply">
+              <button
+                className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
+              >
+                Request Items
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
 
