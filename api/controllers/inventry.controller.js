@@ -1,4 +1,5 @@
 import InventoryItem from '../models/inventry.model.js';
+import supply from '../models/supplier.js';
 
 // Create new inventory item
 export const createInventoryItem = async (req, res, next) => {
@@ -61,6 +62,18 @@ export const deleteInventoryItem = async (req, res, next) => {
       return res.status(404).json({ message: 'Item not found' });
     }
     res.status(200).json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Create new inventory item
+export const createsupplyItem = async (req, res, next) => {
+  try {
+    const {itemname,description,quantity,budget, date } = req.body;
+    const newItem = new supply({ itemname,description,quantity,budget, date });
+    await newItem.save();
+    res.status(201).json({ message: 'Item created successfully', item: newItem });
   } catch (error) {
     next(error);
   }

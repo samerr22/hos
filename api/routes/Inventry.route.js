@@ -5,6 +5,7 @@ import {
   getInventoryItemById,
   updateInventoryItem,
   deleteInventoryItem,
+  createsupplyItem,
 } from '../controllers/inventry.controller.js';
 
 const router = express.Router();
@@ -23,5 +24,7 @@ router.put('/Uinventory/:id', updateInventoryItem);
 
 // Delete inventory item by ID
 router.delete('/inventoryd/:id', deleteInventoryItem);
+
+router.post('/supply', createsupplyItem);
 
 export default router;
